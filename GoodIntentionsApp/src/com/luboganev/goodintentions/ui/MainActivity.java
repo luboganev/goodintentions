@@ -1,4 +1,8 @@
-package com.luboganev.goodintentions;
+package com.luboganev.goodintentions.ui;
+
+import com.luboganev.goodintentions.R;
+import com.luboganev.goodintentions.R.layout;
+import com.luboganev.goodintentions.R.menu;
 
 import android.os.Bundle;
 import android.app.Activity;
