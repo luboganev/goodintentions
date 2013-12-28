@@ -75,12 +75,50 @@ public class LocalStorageManager {
 			}
 			else loadDefaultStorage();
 		}
-		return mLocalStorage.intention;
+		return cloneIntention(mLocalStorage.intention);
 	}
 	
 	public void setStoredIntention(Intention intention) {
-		mLocalStorage.intention = intention;
+		if(mLocalStorage == null) {
+			getStoredIntention();
+		}
+		mLocalStorage.intention = cloneIntention(intention);
 		saveToFile();
+	}
+	
+	private static Intention cloneIntention(Intention original) {
+		Intention intention = new Intention();
+		intention.type = original.type;
+		for(String category : original.categories) {
+			intention.categories.add(new String(category));
+		}
+		intention.action = original.action;
+		intention.componentClassName = new String(original.componentClassName);
+		intention.componentPackageName = new String(original.componentPackageName);
+		intention.data = new String(original.data);
+		intention.mimeType = new String(original.mimeType);
+		
+		for(String extraKey : original.extrasKeys) {
+			intention.extrasKeys.add(new String(extraKey));
+		}
+		
+		for(Integer extraType : original.extrasTypes) {
+			intention.extrasTypes.add(extraType.intValue());
+		}
+		
+		for(String extraValue : original.extrasValues) {
+			intention.extrasValues.add(new String(extraValue));
+		}
+		
+		for(String flagName : original.flagsNames) {
+			intention.flagsNames.add(new String(flagName));
+		}
+		
+		for(Integer flagValue : original.flagsValues) {
+			intention.flagsValues.add(flagValue.intValue());
+		}
+				
+		return intention;
 	}
 	
 	/**

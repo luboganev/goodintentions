@@ -2,7 +2,24 @@
 <resources>
 
     <string name="app_name">Good intentions</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="action_play">Launch intent</string>
+
+    <string-array name="intention_type">
+        <item>Start activity</item>
+        <item>Start service</item>
+        <item>Send broadcast</item>
+    </string-array>
+
+    <string name="intent_type">Type:</string>
+
+    <string name="intent_action">Action</string>
+
+    <string name="intent_component_package_name">Package name</string>
+
+    <string name="intent_component_class_name">Class name</string>
+
+    <string name="intent_data_uri">Data uri</string>
+
+    <string name="intent_mimetype">Mime type</string>
 
 </resources>

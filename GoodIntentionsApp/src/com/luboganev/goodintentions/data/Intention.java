@@ -6,9 +6,9 @@ import android.net.Uri;
 
 public class Intention {
 	public static final int INTENTION_TYPE_NONE = -1;
-    public static final int INTENTION_TYPE_ACTIVITY = 1;
-    public static final int INTENTION_TYPE_SERVICE = 2;
-    public static final int INTENTION_TYPE_BROADCAST = 3;
+    public static final int INTENTION_TYPE_ACTIVITY = 0;
+    public static final int INTENTION_TYPE_SERVICE = 1;
+    public static final int INTENTION_TYPE_BROADCAST = 2;
     
 	/**
 	 * One of the following types required in order to 
@@ -127,6 +127,11 @@ public class Intention {
     	for(Integer flag : flagsValues) {
     		intent.addFlags(flag);
     	}
+    	
+    	if(type == INTENTION_TYPE_ACTIVITY) {
+    		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    	}
+    	
     	for (int i = 0; i < extrasKeys.size(); i++) {
     		if(extrasValues.get(i).length() <= 0) continue;
 			switch(extrasTypes.get(i)) {
@@ -161,6 +166,4 @@ public class Intention {
 		}
     	return intent;
     }
-    
-    
 }

@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,11 +6,95 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    tools:context=".ui.MainActivity" >
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:orientation="vertical" >
 
-</RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/intent_type"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <Spinner
+                android:layout_marginLeft="4dp"
+                android:id="@+id/sp_intention_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:entries="@array/intention_type"/>
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_intent_action"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="@string/intent_action"
+            android:inputType="textEmailAddress"
+            android:singleLine="true" >
+        </EditText>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/et_intent_component_package_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:singleLine="true" 
+                android:hint="@string/intent_component_package_name">
+            </EditText>
+
+            <EditText
+                android:id="@+id/et_intent_component_class_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                android:hint="@string/intent_component_class_name" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_intent_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="@string/intent_data_uri"
+            android:inputType="textEmailAddress"
+            android:singleLine="true" >
+        </EditText>
+        
+        <EditText
+            android:id="@+id/et_intent_mimetype"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="@string/intent_mimetype"
+            android:inputType="textEmailAddress"
+            android:singleLine="true" >
+        </EditText>
+
+    </LinearLayout>
+
+</ScrollView>
