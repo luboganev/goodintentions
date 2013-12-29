@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="intent_extras_labels">
+        <item>ALARM_COUNT</item>
+        <item>ALLOW_MULTIPLE</item>
+        <item>ALLOW_REPLACE</item>
+        <item>ASSIST_CONTEXT</item>
+        <item>ASSIST_PACKAGE</item>
+        <item>BCC</item>
+        <item>BUG_REPORT</item>
+        <item>CC</item>
+        <item>CHANGED_COMPONENT_NAME</item>
+        <item>CHANGED_COMPONENT_NAME_LIST</item>
+        <item>CHANGED_PACKAGE_LIST</item>
+        <item>CHANGED_UID_LIST</item>
+        <item>CLIENT_INTENT</item>
+        <item>CLIENT_LABEL</item>
+        <item>DATA_REMOVED</item>
+        <item>DOCK_STATE</item>
+        <item>DONT_KILL_APP</item>
+        <item>EMAIL</item>
+        <item>HTML_TEXT</item>
+        <item>INITIAL_INTENTS</item>
+        <item>INSTALL_RESULT</item>
+        <item>INSTALLER_PACKAGE_NAME</item>
+        <item>INTENT</item>
+        <item>KEY_CONFIRM</item>
+        <item>KEY_EVENT</item>
+        <item>LOCAL_ONLY</item>
+        <item>MIME_TYPES</item>
+        <item>NOT_UNKNOWN_SOURCE</item>
+        <item>ORIGINATING_UID</item>
+        <item>ORIGINATING_URI</item>
+        <item>PACKAGES</item>
+        <item>PHONE_NUMBER</item>
+        <item>REFERRER</item>
+        <item>REMOTE_INTENT_TOKEN</item>
+        <item>REMOVED_FOR_ALL_USERS</item>
+        <item>REPLACING</item>
+        <item>RESTRICTIONS_BUNDLE</item>
+        <item>RESTRICTIONS_INTENT</item>
+        <item>RESTRICTIONS_LIST</item>
+        <item>RETURN_RESULT</item>
+        <item>SHORTCUT_ICON</item>
+        <item>SHORTCUT_ICON_RESOURCE</item>
+        <item>SHORTCUT_INTENT</item>
+        <item>SHORTCUT_NAME</item>
+        <item>SHUTDOWN_USERSPACE_ONLY</item>
+        <item>STREAM</item>
+        <item>SUBJECT</item>
+        <item>TEMPLATE</item>
+        <item>TEXT</item>
+        <item>TITLE</item>
+        <item>UID</item>
+        <item>UNINSTALL_ALL_USERS</item>
+        <item>USER_HANDLE</item>
+    </string-array>
+
+</resources>

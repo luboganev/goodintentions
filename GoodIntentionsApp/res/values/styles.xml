@@ -1,4 +1,9 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
+     <!-- First declare a custom theme attribute that'll
+         reference a style resource. -->
+    <declare-styleable name="AppTheme">
+        <attr name="removableRowButtonStyle" format="reference" />
+    </declare-styleable>
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -15,9 +20,10 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="removableRowButtonStyle">@style/removableRowButton</item>
     </style>
     
-    <style name="removeable_button" parent="android:Widget">
+    <style name="removableRowButton" parent="android:style/Widget.Button">
         <item name="android:background">@drawable/removeable_item_background</item>
         <item name="android:drawablePadding">4dp</item>
         <item name="android:ellipsize">end</item>

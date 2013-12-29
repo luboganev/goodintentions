@@ -22,4 +22,10 @@
 
     <string name="intent_mimetype">Mime type</string>
 
+    <string name="intent_categories">Categories</string>
+    
+    <string name="pick_category_title">Pick a category</string>
+    
+    
+
 </resources>

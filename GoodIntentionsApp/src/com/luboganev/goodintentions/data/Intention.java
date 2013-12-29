@@ -131,9 +131,9 @@ public class Intention implements Parcelable {
     		intent.addFlags(flag);
     	}
     	
-    	if(type == INTENTION_TYPE_ACTIVITY) {
-    		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    	}
+//    	if(type == INTENTION_TYPE_ACTIVITY) {
+//    		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//    	}
     	
     	for (int i = 0; i < extrasKeys.size(); i++) {
     		if(extrasValues.get(i).length() <= 0) continue;
