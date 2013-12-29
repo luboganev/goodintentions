@@ -6,11 +6,17 @@
 
     <string-array name="intention_type">
         <item>Start activity</item>
+        <item>Start activity for result</item>
         <item>Start service</item>
         <item>Send broadcast</item>
     </string-array>
+    
+    <string-array name="intention_launch_context_type">
+        <item>App context</item>
+        <item>Activity context</item>
+    </string-array>
 
-    <string name="intent_type">Type:</string>
+    <string name="intent_type">Launch type</string>
 
     <string name="intent_action">Action</string>
 
@@ -25,6 +31,8 @@
     <string name="intent_categories">Categories</string>
     
     <string name="pick_category_title">Pick a category</string>
+    
+    <string name="intent_attributes">Attributes</string>
     
     
 

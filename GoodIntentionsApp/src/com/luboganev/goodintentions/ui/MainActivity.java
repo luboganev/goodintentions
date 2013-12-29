@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,6 +26,7 @@ import com.luboganev.goodintentions.ui.views.IntentionCategoriesLinearLayout;
 public class MainActivity extends Activity {
 	
 	@InjectView(R.id.sp_intention_type) Spinner mType;
+	@InjectView(R.id.sp_intention_context_type) Spinner mContextType;
 	@InjectView(R.id.et_intent_action) EditText mAction;
 	@InjectView(R.id.et_intent_component_package_name) EditText mPackageName;
 	@InjectView(R.id.et_intent_component_class_name) EditText mClassName;
@@ -45,6 +47,7 @@ public class MainActivity extends Activity {
 					.getStoredIntention();
 			
 			mType.setSelection(storedIntention.type);
+			mContextType.setSelection(storedIntention.contextType);
 			mAction.setText(storedIntention.action);
 			mPackageName.setText(storedIntention.componentPackageName);
 			mClassName.setText(storedIntention.componentClassName);
@@ -68,7 +71,8 @@ public class MainActivity extends Activity {
 			case R.id.action_play:
 				// TODO launch the currently loaded Intent
 				Intention intention = new Intention();
-				if(mType.getSelectedItemPosition() >= 0) intention.type = mType.getSelectedItemPosition();
+				intention.type = mType.getSelectedItemPosition();
+				intention.contextType = mContextType.getSelectedItemPosition();
 				intention.action = mAction.getText().toString();
 				intention.componentPackageName = mPackageName.getText().toString();
 				intention.componentClassName = mClassName.getText().toString();
@@ -79,7 +83,7 @@ public class MainActivity extends Activity {
 				LocalStorageManager.getInstance(getApplicationContext())
 					.setStoredIntention(intention);
 				
-				String errorMessage = IntentionLauncher.launchIntention(getApplicationContext(), intention);
+				String errorMessage = IntentionLauncher.launchIntention(this, intention);
 				if(errorMessage != null) {
 					Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
 				}
@@ -119,5 +123,26 @@ public class MainActivity extends Activity {
 	        });
 	        return builder.create();
 	    }
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(requestCode == IntentionLauncher.START_FOR_RESULT_DEFAULT_CODE) {
+			switch(resultCode) {
+				case RESULT_OK:
+					Toast.makeText(getApplicationContext(), "Result OK", Toast.LENGTH_SHORT).show();
+					break;
+				case RESULT_CANCELED:
+					Toast.makeText(getApplicationContext(), "Result CANCELED", Toast.LENGTH_SHORT).show();
+					break;
+				case RESULT_FIRST_USER:
+					Toast.makeText(getApplicationContext(), "Result FIRST USER", Toast.LENGTH_SHORT).show();
+					break;
+				default:
+					Toast.makeText(getApplicationContext(), "Result unknown:" + resultCode, Toast.LENGTH_SHORT).show();
+					break;
+			}
+			Toast.makeText(getApplicationContext(), data.toString(), Toast.LENGTH_LONG).show();
+		}
 	}
 }

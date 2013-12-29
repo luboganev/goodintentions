@@ -113,6 +113,7 @@ public class LocalStorageManager {
 	private static Intention cloneIntention(Intention original) {
 		Intention intention = new Intention();
 		intention.type = original.type;
+		intention.contextType = original.contextType;
 		for(String category : original.categories) {
 			intention.categories.add(new String(category));
 		}

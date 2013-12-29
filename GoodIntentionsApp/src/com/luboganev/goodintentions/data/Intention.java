@@ -8,8 +8,12 @@ import android.os.Parcelable;
 
 public class Intention implements Parcelable {
     public static final int INTENTION_TYPE_ACTIVITY = 0;
-    public static final int INTENTION_TYPE_SERVICE = 1;
-    public static final int INTENTION_TYPE_BROADCAST = 2;
+    public static final int INTENTION_TYPE_ACTIVITY_FOR_RESULT = 1;
+    public static final int INTENTION_TYPE_SERVICE = 2;
+    public static final int INTENTION_TYPE_BROADCAST = 3;
+    
+    public static final int INTENTION_LAUNCH_CONTEXT_APP = 0;
+    public static final int INTENTION_LAUNCH_CONTEXT_ACTIVITY = 1;
     
 	/**
 	 * One of the following types required in order to 
@@ -22,6 +26,17 @@ public class Intention implements Parcelable {
 	 * </ul>
 	 */
 	public int type;
+	
+	/**
+	 * One of the following types required in order to 
+	 * know which context to use to launch the Intent:
+	 * 
+	 * <ul>
+	 * 	<li>{@link #INTENTION_LAUNCH_CONTEXT_APP} - The Intent is launched from static application context</li>
+	 * 	<li>{@link #INTENTION_LAUNCH_CONTEXT_ACTIVITY} - The Intent is launched by context of the application's activity</li>
+	 * </ul>
+	 */
+	public int contextType;
 	
 	/**
 	 * The action related to this Intent
@@ -93,6 +108,7 @@ public class Intention implements Parcelable {
      */
     public Intention() {
     	type = INTENTION_TYPE_ACTIVITY;
+    	contextType = INTENTION_LAUNCH_CONTEXT_APP;
     	action = "";
     	componentPackageName = "";
     	componentClassName = "";
@@ -131,10 +147,6 @@ public class Intention implements Parcelable {
     		intent.addFlags(flag);
     	}
     	
-//    	if(type == INTENTION_TYPE_ACTIVITY) {
-//    		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//    	}
-    	
     	for (int i = 0; i < extrasKeys.size(); i++) {
     		if(extrasValues.get(i).length() <= 0) continue;
 			switch(extrasTypes.get(i)) {
@@ -172,6 +184,7 @@ public class Intention implements Parcelable {
 
     protected Intention(Parcel in) {
         type = in.readInt();
+        contextType = in.readInt();
         action = in.readString();
         componentPackageName = in.readString();
         componentClassName = in.readString();
@@ -211,6 +224,7 @@ public class Intention implements Parcelable {
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeInt(type);
+		dest.writeInt(contextType);
         dest.writeString(action);
         dest.writeString(componentPackageName);
         dest.writeString(componentClassName);
