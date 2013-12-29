@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="intent_extras_type_labels">
+        <item>boolean</item>
+        <item>byte</item>
+        <item>char</item>
+        <item>double</item>
+        <item>float</item>
+        <item>int</item>
+        <item>long</item>
+        <item>short</item>
+        <item>string</item>
+    </string-array>
+</resources>

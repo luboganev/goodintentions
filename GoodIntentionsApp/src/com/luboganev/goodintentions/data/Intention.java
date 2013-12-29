@@ -3,9 +3,10 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Intention {
-	public static final int INTENTION_TYPE_NONE = -1;
+public class Intention implements Parcelable {
     public static final int INTENTION_TYPE_ACTIVITY = 0;
     public static final int INTENTION_TYPE_SERVICE = 1;
     public static final int INTENTION_TYPE_BROADCAST = 2;
@@ -91,7 +92,7 @@ public class Intention {
      * Creates a new empty
      */
     public Intention() {
-    	type = INTENTION_TYPE_NONE;
+    	type = INTENTION_TYPE_ACTIVITY;
     	action = "";
     	componentPackageName = "";
     	componentClassName = "";
@@ -107,14 +108,14 @@ public class Intention {
     
     public Intent buildIntent() {
     	Intent intent = new Intent();
-    	if(action != null && action.length() > 0) {
+    	if(action.length() > 0) {
     		intent.setAction(action);
     	}
-    	if(componentPackageName != null && componentClassName != null 
+    	if(componentClassName != null 
     			&& componentPackageName.length() > 0 && componentClassName.length() > 0) {
     		intent.setClassName(componentPackageName, componentClassName);
     	}
-    	if(data != null && data.length() > 0) {
+    	if(data.length() > 0) {
     		if(mimeType != null && mimeType.length() > 0) {
     			intent.setDataAndType(Uri.parse(data), mimeType);
     		} else {
@@ -122,7 +123,9 @@ public class Intention {
     		}
     	}
     	for(String category : categories) {
-    		intent.addCategory(category);
+    		if(category.length() > 0) {
+    			intent.addCategory(category);
+    		}
     	}
     	for(Integer flag : flagsValues) {
     		intent.addFlags(flag);
@@ -166,4 +169,101 @@ public class Intention {
 		}
     	return intent;
     }
+
+    protected Intention(Parcel in) {
+        type = in.readInt();
+        action = in.readString();
+        componentPackageName = in.readString();
+        componentClassName = in.readString();
+        data = in.readString();
+        mimeType = in.readString();
+        categories = new ArrayList<String>();
+        if (in.readByte() == 0x01) {
+            in.readList(categories, String.class.getClassLoader());
+        }
+        flagsNames = new ArrayList<String>();
+        if (in.readByte() == 0x01) {
+            in.readList(flagsNames, String.class.getClassLoader());
+        }
+        flagsValues = new ArrayList<Integer>();
+        if (in.readByte() == 0x01) {
+            in.readList(flagsValues, Integer.class.getClassLoader());
+        }
+        extrasKeys = new ArrayList<String>();
+        if (in.readByte() == 0x01) {
+            in.readList(extrasKeys, String.class.getClassLoader());
+        }
+        extrasTypes = new ArrayList<Integer>();
+        if (in.readByte() == 0x01) {
+            in.readList(extrasTypes, Integer.class.getClassLoader());
+        }
+        extrasValues = new ArrayList<String>();
+        if (in.readByte() == 0x01) {
+            in.readList(extrasValues, String.class.getClassLoader());
+        }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(type);
+        dest.writeString(action);
+        dest.writeString(componentPackageName);
+        dest.writeString(componentClassName);
+        dest.writeString(data);
+        dest.writeString(mimeType);
+        if (categories.isEmpty()) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(categories);
+        }
+        if (flagsNames.isEmpty()) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(flagsNames);
+        }
+        if (flagsValues.isEmpty()) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(flagsValues);
+        }
+        if (extrasKeys.isEmpty()) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(extrasKeys);
+        }
+        if (extrasTypes.isEmpty()) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(extrasTypes);
+        }
+        if (extrasValues.isEmpty()) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(extrasValues);
+        }
+	}
+	
+	@SuppressWarnings("unused")
+    public static final Parcelable.Creator<Intention> CREATOR = new Parcelable.Creator<Intention>() {
+        @Override
+        public Intention createFromParcel(Parcel in) {
+            return new Intention(in);
+        }
+
+        @Override
+        public Intention[] newArray(int size) {
+            return new Intention[size];
+        }
+    };
 }

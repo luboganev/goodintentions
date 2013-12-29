@@ -25,9 +25,30 @@ public class LocalStorageManager {
 	private final Gson mGson;
 	private final Context mApplicationContext;
 	
-	public LocalStorageManager(Context applicationContext) {
+	private static LocalStorageManager mSingleInstance;
+	
+	public static LocalStorageManager getInstance(Context applicationContext) {
+		if(mSingleInstance == null) {
+			mSingleInstance = new LocalStorageManager(applicationContext);
+		}
+		return mSingleInstance;
+	}
+	
+	private LocalStorageManager(Context applicationContext) {
 		mApplicationContext = applicationContext;
 		mGson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
+	}
+	
+	/**
+	 * Used by some functions to lazily load the local storage into memory
+	 */
+	private void initLocalStorage() {
+		if(mLocalStorage == null) {
+			if(hasSavedLocalStorage()) {
+				loadFromFile();
+			}
+			else loadDefaultStorage();
+		}
 	}
 	
 	/**
@@ -68,20 +89,23 @@ public class LocalStorageManager {
 		mLocalStorage.intention = new Intention();
 	}
 	
+	/**
+	 * Gets a stored Intention
+	 * 
+	 * @return A copy of the stored Intention
+	 */
 	public Intention getStoredIntention() {
-		if(mLocalStorage == null) {
-			if(hasSavedLocalStorage()) {
-				loadFromFile();
-			}
-			else loadDefaultStorage();
-		}
+		initLocalStorage();
 		return cloneIntention(mLocalStorage.intention);
 	}
 	
+	/**
+	 * Stores a new Intention.
+	 * 
+	 * @param intention
+	 */
 	public void setStoredIntention(Intention intention) {
-		if(mLocalStorage == null) {
-			getStoredIntention();
-		}
+		initLocalStorage();
 		mLocalStorage.intention = cloneIntention(intention);
 		saveToFile();
 	}

@@ -28,15 +28,20 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		ButterKnife.inject(this);
-		LocalStorageManager manager = new LocalStorageManager(getApplicationContext());
-		Intention storedIntention = manager.getStoredIntention();
 		
-		mType.setSelection(storedIntention.type >= 0 ? storedIntention.type : 0);
-		mAction.setText(storedIntention.action);
-		mPackageName.setText(storedIntention.componentPackageName);
-		mClassName.setText(storedIntention.componentClassName);
-		mData.setText(storedIntention.data);
-		mMimeType.setText(storedIntention.mimeType);
+		
+		if(savedInstanceState == null) {
+			Intention storedIntention = LocalStorageManager.getInstance(getApplicationContext())
+					.getStoredIntention();
+			
+			mType.setSelection(storedIntention.type);
+			mAction.setText(storedIntention.action);
+			mPackageName.setText(storedIntention.componentPackageName);
+			mClassName.setText(storedIntention.componentClassName);
+			mData.setText(storedIntention.data);
+			mMimeType.setText(storedIntention.mimeType);
+		}
+		
 	}
 
 	@Override
@@ -59,8 +64,8 @@ public class MainActivity extends Activity {
 				intention.data = mData.getText().toString();
 				intention.mimeType = mMimeType.getText().toString();
 				
-				LocalStorageManager manager = new LocalStorageManager(getApplicationContext());
-				manager.setStoredIntention(intention);
+				LocalStorageManager.getInstance(getApplicationContext())
+					.setStoredIntention(intention);
 				
 				IntentionLauncher.launchIntention(getApplicationContext(), intention);
 				return true;

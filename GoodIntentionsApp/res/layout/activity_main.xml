@@ -95,6 +95,13 @@
             android:singleLine="true" >
         </EditText>
 
+        <Button
+            android:id="@+id/button1"
+            style="@style/removeable_button"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="A very long name for this button" />
+
     </LinearLayout>
 
 </ScrollView>

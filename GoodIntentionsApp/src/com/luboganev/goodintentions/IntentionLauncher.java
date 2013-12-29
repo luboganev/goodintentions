@@ -16,7 +16,6 @@ public class IntentionLauncher {
 		case Intention.INTENTION_TYPE_SERVICE:
 			applicationContext.sendBroadcast(intention.buildIntent());
 			break;
-		case Intention.INTENTION_TYPE_NONE:
 		default:
 			break;
 		}
