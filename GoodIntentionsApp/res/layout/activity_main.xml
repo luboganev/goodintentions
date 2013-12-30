@@ -6,7 +6,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ui.MainActivity">
+    android:scrollbarStyle="outsideOverlay"
+    tools:context=".ui.MainActivity" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,36 +21,45 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textStyle="bold" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/green" />
+
         <LinearLayout
-            android:layout_marginTop="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:orientation="horizontal" >
-            
+
             <Spinner
                 android:id="@+id/sp_intention_type"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:entries="@array/intention_type"/>
-            
+                android:entries="@array/intention_type" />
+
             <Spinner
-                android:layout_marginLeft="8dp"
                 android:id="@+id/sp_intention_context_type"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:layout_weight="1"
-                android:entries="@array/intention_launch_context_type"/>
-
+                android:entries="@array/intention_launch_context_type" />
         </LinearLayout>
-        
+
         <TextView
-            android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="@string/intent_attributes"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/green" />
 
         <EditText
             android:id="@+id/et_intent_action"
@@ -58,14 +68,14 @@
             android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="@string/intent_action"
+            android:imeOptions="flagNoExtractUi"
             android:inputType="textEmailAddress"
-            android:singleLine="true" >
-        </EditText>
+            android:singleLine="true" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" 
-            android:layout_marginTop="8dp">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" >
 
             <EditText
                 android:id="@+id/et_intent_component_package_name"
@@ -73,10 +83,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:hint="@string/intent_component_package_name"
+                android:imeOptions="flagNoExtractUi"
                 android:inputType="textEmailAddress"
-                android:singleLine="true" 
-                android:hint="@string/intent_component_package_name">
-            </EditText>
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/et_intent_component_class_name"
@@ -84,9 +94,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:hint="@string/intent_component_class_name"
+                android:imeOptions="flagNoExtractUi"
                 android:inputType="textEmailAddress"
-                android:singleLine="true"
-                android:hint="@string/intent_component_class_name" />
+                android:singleLine="true" />
         </LinearLayout>
 
         <EditText
@@ -96,10 +107,10 @@
             android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="@string/intent_data_uri"
+            android:imeOptions="flagNoExtractUi"
             android:inputType="textEmailAddress"
-            android:singleLine="true" >
-        </EditText>
-        
+            android:singleLine="true" />
+
         <EditText
             android:id="@+id/et_intent_mimetype"
             android:layout_width="match_parent"
@@ -107,16 +118,23 @@
             android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="@string/intent_mimetype"
+            android:imeOptions="flagNoExtractUi"
             android:inputType="textEmailAddress"
-            android:singleLine="true" >
-        </EditText>
+            android:singleLine="true" />
 
         <com.luboganev.goodintentions.ui.views.IntentionCategoriesLinearLayout
-            android:layout_marginTop="8dp"
             android:id="@+id/custom_view_intention_categories"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical" />
 
+        <com.luboganev.goodintentions.ui.views.IntentionFlagsLinearLayout
+            android:id="@+id/custom_view_intention_flags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical" />
     </LinearLayout>
 
 </ScrollView>

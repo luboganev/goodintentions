@@ -34,6 +34,13 @@
     
     <string name="intent_attributes">Attributes</string>
     
+    <string name="intention_flags">Flags</string>
+    
+    <string name="pick_flag_title">Pick a flag</string>
+    
+    <string name="category_name_hint">Search or type</string>
+    
+    <string name="add_flag">Add flag</string>
     
 
 </resources>

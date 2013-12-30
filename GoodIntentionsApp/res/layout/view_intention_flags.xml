@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/intention_flags"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/green" />
+
+    <Button
+        android:id="@+id/btn_flag_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="?android:attr/selectableItemBackground"
+        android:drawableRight="@drawable/ic_content_add"
+        android:paddingLeft="8dp"
+        android:text="@string/add_flag"
+        android:textColor="@color/dark_grey" />
+
+    <LinearLayout
+        android:id="@+id/ll_flags_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+</merge>

@@ -148,9 +148,8 @@ public class IntentionCategoriesLinearLayout extends LinearLayout {
 		}
 		Bundle b = (Bundle)state;
 		if(b.containsKey(STATE_EXTRA_CATEGORIES_LIST)) {
-			
+			mCategories = b.getStringArrayList(STATE_EXTRA_CATEGORIES_LIST);
 		}
-		mCategories = b.getStringArrayList(STATE_EXTRA_CATEGORIES_LIST);
 		Parcelable sp = b.getParcelable("super");
 		super.onRestoreInstanceState(sp);
 		reloadCategoryViews();

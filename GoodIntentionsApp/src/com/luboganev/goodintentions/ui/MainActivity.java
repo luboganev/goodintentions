@@ -22,6 +22,7 @@ import com.luboganev.goodintentions.R;
 import com.luboganev.goodintentions.data.Intention;
 import com.luboganev.goodintentions.data.LocalStorageManager;
 import com.luboganev.goodintentions.ui.views.IntentionCategoriesLinearLayout;
+import com.luboganev.goodintentions.ui.views.IntentionFlagsLinearLayout;
 
 public class MainActivity extends Activity {
 	
@@ -33,6 +34,7 @@ public class MainActivity extends Activity {
 	@InjectView(R.id.et_intent_data) EditText mData;
 	@InjectView(R.id.et_intent_mimetype) EditText mMimeType;
 	@InjectView(R.id.custom_view_intention_categories) IntentionCategoriesLinearLayout mIntentionCategories;
+	@InjectView(R.id.custom_view_intention_flags) IntentionFlagsLinearLayout mIntentionFlags;
 	
 	
 	@Override
@@ -54,8 +56,10 @@ public class MainActivity extends Activity {
 			mData.setText(storedIntention.data);
 			mMimeType.setText(storedIntention.mimeType);
 			mIntentionCategories.setCategories(storedIntention.categories);
+			mIntentionFlags.setFlags(storedIntention.flagsNames, storedIntention.flagsValues);
 		}
 		mIntentionCategories.setOnFindCategoryButtonClickListener(new OnFindExistingCategoryClicked());
+		mIntentionFlags.setOnAddFlagButtonClickListener(new OnAddFlagClicked());
 	}
 
 	@Override
@@ -79,6 +83,8 @@ public class MainActivity extends Activity {
 				intention.data = mData.getText().toString();
 				intention.mimeType = mMimeType.getText().toString();
 				intention.categories = mIntentionCategories.getCategoriesList();
+				intention.flagsNames = mIntentionFlags.getFlagNamesList();
+				intention.flagsValues = mIntentionFlags.getFlagValuesList();
 				
 				LocalStorageManager.getInstance(getApplicationContext())
 					.setStoredIntention(intention);
@@ -93,37 +99,76 @@ public class MainActivity extends Activity {
 		}
 	}
 	
-	
-	private static final String FIND_EXISTING_CATEGORY_DIALOG_FRAGMENT_TAG = "find_existing_category_dialog_fragment_tag";
-	
 	private class OnFindExistingCategoryClicked implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			FindExistingCategoryDialogFragment newFragment = new FindExistingCategoryDialogFragment();
-			newFragment.show(getFragmentManager(), FIND_EXISTING_CATEGORY_DIALOG_FRAGMENT_TAG);
+			ItemPickerDialogFragment newFragment = ItemPickerDialogFragment.getInstance(
+					R.string.pick_category_title, R.array.intent_categories_labels, PICK_CODE_CATEGORY);
+			newFragment.show(getFragmentManager(), ITEM_PICKER_DIALOG_FRAGMENT_TAG);
 		}
 	}
 	
-	private void onExistingCategoryPicked(String category) {
-		mIntentionCategories.setNewCategory(category);
+	private class OnAddFlagClicked implements OnClickListener {
+		@Override
+		public void onClick(View v) {
+			ItemPickerDialogFragment newFragment = ItemPickerDialogFragment.getInstance(
+					R.string.pick_flag_title, R.array.intent_flags_labels, PICK_CODE_FLAG);
+			newFragment.show(getFragmentManager(), ITEM_PICKER_DIALOG_FRAGMENT_TAG);
+		}
 	}
 	
-	public static class FindExistingCategoryDialogFragment extends DialogFragment {
-	    @Override
-	    public Dialog onCreateDialog(Bundle savedInstanceState) {
-	    	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-	        builder.setTitle(R.string.pick_category_title)
-	        .setItems(R.array.intent_categories_labels, new DialogInterface.OnClickListener() {
-                   public void onClick(DialogInterface dialog, int which) {
-                   final String pickedCategory = "android.intent.category." + 
-                		   getResources().
-                		   getStringArray(R.array.intent_categories_labels)[which];
-                   ((MainActivity)getActivity()).onExistingCategoryPicked(pickedCategory);
-               }
-	        });
-	        return builder.create();
-	    }
+	private static final int PICK_CODE_CATEGORY = 1;
+	private static final int PICK_CODE_FLAG = 2;
+	
+	private void onItemPicked(int pickedPosition, int pickCode) {
+		switch(pickCode) {
+			case PICK_CODE_CATEGORY:
+				mIntentionCategories.setNewCategory("android.intent.category." + 
+			     		   getResources().
+			     		   getStringArray(R.array.intent_categories_labels)[pickedPosition]);
+				break;
+			case PICK_CODE_FLAG:
+				mIntentionFlags.appendFlag(getResources().
+						getStringArray(R.array.intent_flags_labels)[pickedPosition], 
+						getResources().getIntArray(R.array.intent_flags_values)[pickedPosition]);
+				break;
+			default:
+				break;
+		}
 	}
+	
+	private static final String ITEM_PICKER_DIALOG_FRAGMENT_TAG = "item_picker_dialog_fragment_tag";
+	
+	public static class ItemPickerDialogFragment extends DialogFragment {
+		private static final String ARG_LIST_ARRAY_RESOURCE_ID = "list_array_resource_id";
+		private static final String ARG_TITLE_RESOURCE_ID = "title_resource_id";
+		private static final String ARG_PICK_CODE = "pick_code";
+		
+		public static ItemPickerDialogFragment getInstance(int titleResourceId, int listArrayResourceId, int pickCode) {
+			ItemPickerDialogFragment fragment = new ItemPickerDialogFragment();
+			Bundle arguments = new Bundle();
+			arguments.putInt(ARG_TITLE_RESOURCE_ID, titleResourceId);
+			arguments.putInt(ARG_LIST_ARRAY_RESOURCE_ID, listArrayResourceId);
+			arguments.putInt(ARG_PICK_CODE, pickCode);
+			fragment.setArguments(arguments);
+			return fragment;
+		}
+		
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			builder.setTitle(getArguments().getInt(ARG_TITLE_RESOURCE_ID))
+			.setItems(getArguments().getInt(ARG_LIST_ARRAY_RESOURCE_ID), 
+					new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					((MainActivity)getActivity()).onItemPicked(which, 
+							getArguments().getInt(ARG_PICK_CODE));
+				}
+			});
+			return builder.create();
+		}
+	}
+	
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

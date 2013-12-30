@@ -1,37 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:text="@string/intent_categories"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:text="@string/intent_categories"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textStyle="bold" />
-
-        <ImageButton
-            android:id="@+id/btn_category_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:src="@drawable/ic_content_search" />
-    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/green" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/btn_category_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="2dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_content_search" />
 
         <EditText
             android:id="@+id/et_new_intent_category"
@@ -40,25 +37,25 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Search existing or type"
-            android:inputType="textEmailAddress" >
-        </EditText>
+            android:hint="@string/category_name_hint"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="textEmailAddress" />
 
         <ImageButton
             android:id="@+id/btn_category_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
+            android:layout_marginLeft="2dp"
             android:background="?android:attr/selectableItemBackground"
             android:src="@drawable/ic_content_add" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="8dp"
         android:id="@+id/ll_categories_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:orientation="vertical" >
     </LinearLayout>
 
-</LinearLayout>
+</merge>
