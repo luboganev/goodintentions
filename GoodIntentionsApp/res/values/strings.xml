@@ -31,6 +31,8 @@
     <string name="intent_categories">Categories</string>
     
     <string name="pick_category_title">Pick a category</string>
+
+    <string name="pick_action_title">Pick an action</string>
     
     <string name="intent_attributes">Attributes</string>
     

@@ -61,16 +61,32 @@
             android:layout_height="2dp"
             android:background="@color/green" />
 
-        <EditText
-            android:id="@+id/et_intent_action"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:ems="10"
-            android:hint="@string/intent_action"
-            android:imeOptions="flagNoExtractUi"
-            android:inputType="textEmailAddress"
-            android:singleLine="true" />
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/btn_action_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/selectable_background_goodintentions"
+                android:src="@drawable/ic_content_search" />
+
+            <EditText
+                android:id="@+id/et_intent_action"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/intent_action"
+                android:imeOptions="flagNoExtractUi"
+                android:inputType="textEmailAddress"
+                android:singleLine="true" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

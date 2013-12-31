@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 import butterknife.ButterKnife;
@@ -28,6 +29,7 @@ public class MainActivity extends Activity {
 	
 	@InjectView(R.id.sp_intention_type) Spinner mType;
 	@InjectView(R.id.sp_intention_context_type) Spinner mContextType;
+	@InjectView(R.id.btn_action_search) ImageButton mActionSearchButton;
 	@InjectView(R.id.et_intent_action) EditText mAction;
 	@InjectView(R.id.et_intent_component_package_name) EditText mPackageName;
 	@InjectView(R.id.et_intent_component_class_name) EditText mClassName;
@@ -52,6 +54,7 @@ public class MainActivity extends Activity {
 		}
 		mIntentionCategories.setOnFindCategoryButtonClickListener(new OnFindExistingCategoryClicked());
 		mIntentionFlags.setOnAddFlagButtonClickListener(new OnAddFlagClicked());
+		mActionSearchButton.setOnClickListener(new OnFindExistingActionClicked());
 	}
 	
 	private void initViewsFromIntention(Intention intention) {
@@ -111,6 +114,15 @@ public class MainActivity extends Activity {
 		}
 	}
 	
+	private class OnFindExistingActionClicked implements OnClickListener {
+		@Override
+		public void onClick(View v) {
+			ItemPickerDialogFragment newFragment = ItemPickerDialogFragment.getInstance(
+					R.string.pick_action_title, R.array.intent_actions_labels, PICK_CODE_ACTION);
+			newFragment.show(getFragmentManager(), ITEM_PICKER_DIALOG_FRAGMENT_TAG);
+		}
+	}
+	
 	private class OnFindExistingCategoryClicked implements OnClickListener {
 		@Override
 		public void onClick(View v) {
@@ -129,11 +141,17 @@ public class MainActivity extends Activity {
 		}
 	}
 	
-	private static final int PICK_CODE_CATEGORY = 1;
-	private static final int PICK_CODE_FLAG = 2;
+	private static final int PICK_CODE_ACTION = 1;
+	private static final int PICK_CODE_CATEGORY = 2;
+	private static final int PICK_CODE_FLAG = 3;
 	
 	private void onItemPicked(int pickedPosition, int pickCode) {
 		switch(pickCode) {
+			case PICK_CODE_ACTION:
+				mAction.setText("android.intent.action." + 
+						getResources().
+						getStringArray(R.array.intent_actions_labels)[pickedPosition]);
+			break;
 			case PICK_CODE_CATEGORY:
 				mIntentionCategories.setNewCategory("android.intent.category." + 
 			     		   getResources().
