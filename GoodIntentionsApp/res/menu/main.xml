@@ -2,9 +2,19 @@
 
     <item
         android:id="@+id/action_play"
-        android:orderInCategory="100"
-        android:showAsAction="always"
         android:icon="@drawable/ic_action_play"
+        android:orderInCategory="1"
+        android:showAsAction="always"
         android:title="@string/action_play"/>
+    <item
+        android:id="@+id/action_clear"
+        android:orderInCategory="2"
+        android:showAsAction="never"
+        android:title="@string/action_clear"/>
+    <item
+        android:id="@+id/action_about"
+        android:orderInCategory="3"
+        android:showAsAction="never"
+        android:title="@string/action_about"/>
 
 </menu>

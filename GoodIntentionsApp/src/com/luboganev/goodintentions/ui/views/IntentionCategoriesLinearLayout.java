@@ -59,6 +59,7 @@ public class IntentionCategoriesLinearLayout extends LinearLayout {
 	
 	public void setCategories(ArrayList<String> categories) {
 		mCategories = categories;
+		mNewCategoryEditText.getText().clear();
 		reloadCategoryViews();
 	}
 	

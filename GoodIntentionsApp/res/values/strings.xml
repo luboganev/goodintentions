@@ -42,5 +42,9 @@
     
     <string name="add_flag">Add flag</string>
     
+    <string name="action_clear">Clear</string>
+    
+    <string name="action_about">About</string>
+    
 
 </resources>

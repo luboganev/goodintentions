@@ -48,18 +48,22 @@ public class MainActivity extends Activity {
 			Intention storedIntention = LocalStorageManager.getInstance(getApplicationContext())
 					.getStoredIntention();
 			
-			mType.setSelection(storedIntention.type);
-			mContextType.setSelection(storedIntention.contextType);
-			mAction.setText(storedIntention.action);
-			mPackageName.setText(storedIntention.componentPackageName);
-			mClassName.setText(storedIntention.componentClassName);
-			mData.setText(storedIntention.data);
-			mMimeType.setText(storedIntention.mimeType);
-			mIntentionCategories.setCategories(storedIntention.categories);
-			mIntentionFlags.setFlags(storedIntention.flagsNames, storedIntention.flagsValues);
+			initViewsFromIntention(storedIntention);
 		}
 		mIntentionCategories.setOnFindCategoryButtonClickListener(new OnFindExistingCategoryClicked());
 		mIntentionFlags.setOnAddFlagButtonClickListener(new OnAddFlagClicked());
+	}
+	
+	private void initViewsFromIntention(Intention intention) {
+		mType.setSelection(intention.type);
+		mContextType.setSelection(intention.contextType);
+		mAction.setText(intention.action);
+		mPackageName.setText(intention.componentPackageName);
+		mClassName.setText(intention.componentClassName);
+		mData.setText(intention.data);
+		mMimeType.setText(intention.mimeType);
+		mIntentionCategories.setCategories(intention.categories);
+		mIntentionFlags.setFlags(intention.flagsNames, intention.flagsValues);
 	}
 
 	@Override
@@ -71,10 +75,10 @@ public class MainActivity extends Activity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		Intention intention;
 		switch(item.getItemId()) {
 			case R.id.action_play:
-				// TODO launch the currently loaded Intent
-				Intention intention = new Intention();
+				intention = new Intention();
 				intention.type = mType.getSelectedItemPosition();
 				intention.contextType = mContextType.getSelectedItemPosition();
 				intention.action = mAction.getText().toString();
@@ -93,6 +97,14 @@ public class MainActivity extends Activity {
 				if(errorMessage != null) {
 					Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
 				}
+				return true;
+			case R.id.action_clear:
+				intention = new Intention();
+				LocalStorageManager.getInstance(getApplicationContext()).setStoredIntention(intention);
+				initViewsFromIntention(intention);
+				return true;
+			case R.id.action_about:
+				//TODO:
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
