@@ -12,16 +12,20 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.Goodintentions">
+        android:theme="@style/Theme.Goodintentions" >
         <activity
             android:name="com.luboganev.goodintentions.ui.MainActivity"
-            android:label="@string/app_name" 
-            android:windowSoftInputMode="stateHidden|adjustPan">
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden|adjustPan" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.luboganev.goodintentions.ui.AboutActivity"
+            android:label="@string/activity_about" >
         </activity>
     </application>
 

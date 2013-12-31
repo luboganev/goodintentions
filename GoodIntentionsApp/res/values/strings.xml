@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">Good intentions</string>
+    <string name="activity_about">About</string>
     <string name="action_play">Launch intent</string>
 
     <string-array name="intention_type">

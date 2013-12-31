@@ -107,8 +107,8 @@ public class MainActivity extends Activity {
 				initViewsFromIntention(intention);
 				return true;
 			case R.id.action_about:
-				//TODO:
-				return true;
+				startActivity(new Intent(getApplicationContext(), AboutActivity.class));
+	        	return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
