@@ -6,6 +6,8 @@ Good intentions
 This is the official repository containing the source code behind the Good intentions
 Android application.
 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Good%20intentions-brightgreen.svg?style=flat)](https://android-arsenal.com/details/3/1295)
+
 Download
 --------
 
@@ -14,9 +16,9 @@ You can download the latest version of Good intentions from [Google Play][1].
 About
 -----
 
-This app is built during the free time of the developer for fun. It provides with a tool to test some 
+This app is built during the free time of the developer for fun. It provides with a tool to test some
 Intent behavior while building and testing other apps or just for fun playing with the framework. ;)
-This app would not work and feel the same way if it weren't for 
+This app would not work and feel the same way if it weren't for
 some great Android open-source projects that were used during the development.
 
 * [Android open source project][2]
@@ -46,4 +48,3 @@ License
  [2]: http://source.android.com/
  [3]: https://github.com/JakeWharton/butterknife
  [4]: https://code.google.com/p/google-gson
-
